@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <!--END FONTS-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Horizon Hotels: Room portal
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    <!--Navigation-->
+    <div class="topbar"> <div class="topbartext"><a href="booking.html">Book Now</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="signin.html">Sign In</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="signin-e.html">Employee potral</a></div></div>
+    <div class="topnav">
+        <img class="logo" src="./images/logo-icon3.png">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Book Now</a>
+        <a href="about.html">About Us</a>
+        <a href="offers.html">Offers</a>
+        <a href="contact.html">Contact Us</a>
+      </div> 
+</head>
+<body>
+    <center><h2>Room Management</h2>
+        <br><a href="portal.html"><button>Booking portal</button></a><a href="cemanagement-e.html"><button>Client/Employee Management</button></a></center>
+    <div class="roomed">
+        <div class="form-section">
+            <h3>Information</h3>
+            <form id="roomForm">
+                <label>
+                    Room Number: <input type="text" id="roomNumber" required>
+                </label>
+                <br>
+                <label>
+                    Room Name: <input type="text" id="roomName">
+                </label>
+                <br>
+                <label>
+                    Price Per Night: <input type="number" id="roomPrice">
+                </label>
+                <br>
+                <label>
+                    Maximum Capacity: <input type="number" id="roomCapacity" required>
+                </label>
+                <br>
+                <label>
+                    View: <input type="text" id="roomView">
+                </label>
+                <br>
+                <label>
+                    Amenities: <input type="text" id="roomAmenities">
+                </label>
+                <br>
+                <label>
+                    Extendable:
+                    <select id="roomExtendable">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </label>
+                <br>
+                <label>
+                    Occupied:
+                    <select id="roomOccupied">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </label>
+                <br>
+                <label>
+                    Booked:
+                    <select id="roomBooked">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </label>
+                <br>
+                <label>
+                    Room Photo: <input type="file" id="roomPhoto" accept="image/*">
+                </label>
+                <br>
+                <button type="submit">Add/Update Room</button>
+            </form>
+        </div>
+        <div class="sidebar">
+            <h3>Rooms</h3>
+            <div id="roomList"></div>
+        </div>
+    
+</div>
+ </body>
+    <!--Footer-->
+    <footer>
+      <table class="footert">
+          <tr>
+            <td class="tdr">
+              <img class="logo" src="./images/logo-icon3.png">
+              <br>
+              <br><a href="_blank">Careers</a>
+              <br><a href="_blank">Privacy Policy</a>
+              <br><a href="_blank">Site Usage Agreement</a>
+              <br><a href="_blank">Terms & Conditions</a>
+            </td>
+            <td class="tdr">
+              How can we help?<br>
+              <br><a href="contact.html">Contact us</a>
+              <br>+1-800-832-3482
+          </td>
+          <td class="tdr">
+              Follow Us<br>
+              <br><a href="_blank"><img width="20px" src="./images/facebook.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/instagram.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/linkedin.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/twitter.png"></a>&nbsp;
+          </td>
+          </tr>
+        </table> 
+    </footer>
+  <script src="script.js"></script>
+</body>
+</html>

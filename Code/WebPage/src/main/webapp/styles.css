@@ -42,13 +42,18 @@ a {
     color: #6b8d9b;
   }
 
+/*Signin*/
+.signin {
+  padding: 0px 20% 20% 20%;
+}
+
 /*Booking*/
 #bookingForm {
   display:inline-block;
   padding: 20px 50px 10px 10%;
   font-size: 16px;
   width: 400px;
-  vertical-align: top; 
+  vertical-align: top;
 }
 
 label {
@@ -94,7 +99,7 @@ input[type="range"] {
     object-fit: cover;
     background-size:cover;
   }
-  
+
   #bannerimage2 {
     width: 100vw;
     background-color: rgb(255, 255, 255);
@@ -145,12 +150,12 @@ input[type="range"] {
     background-color: #525e66;
     overflow: hidden;
   }
-  
+
 .logo {
   float: left;
   padding: 5px 30px 0px 30px;
 }
-  
+
   .topnav a {
     float: left;
     color: #DADDD8;
@@ -158,13 +163,13 @@ input[type="range"] {
     text-decoration: none;
     font-size: 14px;
   }
-  
+
   .topnav a:hover {
     background-color: #ECEBE4;
     color: black;
   }
-  
-  .topbar { 
+
+  .topbar {
     background-color: #e7e7e7;
     overflow: hidden;
     color: #ffffff;
@@ -186,12 +191,43 @@ footer {
     color: white;
     min-height: 50px;
   }
-  
+
   .footert {
     padding: 30px;
   }
-  
+
   .tdr {
     padding: 50px;
   }
-  
+
+  /*Room and clientemployee editing*/
+  .form-section, .sidebar {
+    padding: 20px;
+}
+.form-section {
+    width: 50%;
+}
+.sidebar {
+    width: 50%;
+    border-left: 2px solid #ccc;
+}
+.room-card {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.room-card img {
+    max-width: 100%;
+    height: auto;
+}
+.roomed {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10%;
+}
+
+.card {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+}

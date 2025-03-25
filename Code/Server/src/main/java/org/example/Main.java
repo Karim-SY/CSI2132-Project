@@ -8,12 +8,12 @@ import java.sql.*;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "password");
+        Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgres");
         Statement st = db.createStatement();
         ResultSet rs = st.executeQuery("SELECT B.\"Date\", B.\"Hotel_Num\", B.\"Room_Num\", P.\"Name\" AS Customer_Name\n" +
-                "FROM \"Book\" B\n" +
-                "JOIN \"Customer\" C ON B.\"Customer_ID\" = C.\"ID\"\n" +
-                "JOIN \"Person\" P ON C.\"ID\" = P.\"ID\";\n");
+                                            "FROM \"Book\" B\n" +
+                                            "JOIN \"Customer\" C ON B.\"Customer_ID\" = C.\"ID\"\n" +
+                                            "JOIN \"Person\" P ON C.\"ID\" = P.\"ID\";\n");
         while (rs.next()){
             System.out.println("Return: ");
             System.out.println(rs.getString(1));
@@ -22,10 +22,10 @@ public class Main {
             System.out.println(rs.getString(4));
         }
 
-        DatabaseServlet dbs = new DatabaseServlet();
-        
         rs.close();
         st.close();
+
+
 
     }
 }

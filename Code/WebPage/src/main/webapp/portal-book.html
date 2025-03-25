@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <!--END FONTS-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Horizon Hotels: Booking portal
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    <!--Navigation-->
+    <div class="topbar"> <div class="topbartext"><a href="booking.html">Book Now</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="signin.html">Sign In</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="signin-e.html">Employee potral</a></div></div>
+    <div class="topnav">
+        <img class="logo" src="./images/logo-icon3.png">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Book Now</a>
+        <a href="about.html">About Us</a>
+        <a href="offers.html">Offers</a>
+        <a href="contact.html">Contact Us</a>
+      </div> 
+</head>
+<body>
+    <center>
+  <div>
+        <h2>Booking portal</h2>  </center>
+  </div>
+  <div class="main">
+    <form>
+        <h3>Customer information</h3>
+        <label>First name:</label>
+            <input type="text" maxlength="15">
+
+        <br><br><label>Middle name:</label>
+        <input type="text" maxlength="15"> 
+
+        <br><br><label>Last name:</label>
+        <input type="text" maxlength="15"> 
+
+        <br><br><label>Address:</label>
+        <input type="text" maxlength="50"> 
+
+        <br><br><label id="ID">Select ID type:
+        <select>
+          <option value="SSN">SSN</option>
+          <option value="SIN">SIN</option>
+          <option value="License">Driver's License</option>
+        </select></label>
+
+        <br><br><label id="ID">ID:
+            <input type="text" maxlength="20"></label>
+
+        <h3>Room information</h3>
+        <label id="hotel" for="hotel">Select Hotel Chain:
+            <select>
+                <option value="NewYork">Grand Horizon New York</option>
+                <option value="Aspen">Grand Horizon Aspen Retreat</option>
+                <option value="Miami">Grand Horizon Miami Beach</option>
+                <option value="LasVegas">Grand Horizon Las Vegas</option>
+                <option value="Napa">Grand Horizon Napa Valley</option>
+            </select></label>
+        
+            <br><br><label id="nroom" for="rooms">Rooms: <input type="number" min="1" max="5" value="1"></label>
+            
+            <br><br><label id="guests" for="guests">Guests:
+            <input type="number" min="1" max="6" value="1"></label>
+            
+            
+            <br><br><label id="checkin" for="checkin">Check-in Date:
+            <input type="date"></label>
+            
+            <br><br><label id="checkout" for="checkout">Check-out Date:
+            <input type="date"></label>
+            
+            <br><br><label  id="attraction" for="attraction">Area attraction:
+            <select>
+                <option value="Mountains">Mountain view</option>
+                <option value="Beach">Beachfront resort</option>
+                <option value="City">Bustling city core</option>
+            </select></label>
+        
+          <br><br><div class="container">
+              <input type="range" id="priceRange" min="0" max="1000" value="500" oninput="updatePrice()">
+              Price max per night: $<span id="priceValue">500</span>
+          </div>
+            <br><br><a href="confirmation.html"><button type="button">Reserve room(s)</button></a>
+      </div>
+    </form>
+
+  </div>
+    <!--Footer-->
+    <footer>
+      <table class="footert">
+          <tr>
+            <td class="tdr">
+              <img class="logo" src="./images/logo-icon3.png">
+              <br>
+              <br><a href="_blank">Careers</a>
+
+              <br><a href="_blank">Privacy Policy</a>
+              <br><a href="_blank">Site Usage Agreement</a>
+              <br><a href="_blank">Terms & Conditions</a>
+            </td>
+            <td class="tdr">
+              How can we help?<br>
+              <br><a href="contact.html">Contact us</a>
+              <br>+1-800-832-3482
+          </td>
+          <td class="tdr">
+              Follow Us<br>
+              <br><a href="_blank"><img width="20px" src="./images/facebook.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/instagram.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/linkedin.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/twitter.png"></a>&nbsp;
+          </td>
+          </tr>
+        </table> 
+    </footer>
+  <script src="script.js"></script>
+</body>
+</html>

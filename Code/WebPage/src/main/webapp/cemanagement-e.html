@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <!--END FONTS-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Horizon Hotels: Room portal
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    <!--Navigation-->
+    <div class="topbar"> <div class="topbartext"><a href="booking.html">Book Now</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="signin.html">Sign In</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="signin-e.html">Employee potral</a></div></div>
+    <div class="topnav">
+        <img class="logo" src="./images/logo-icon3.png">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Book Now</a>
+        <a href="about.html">About Us</a>
+        <a href="offers.html">Offers</a>
+        <a href="contact.html">Contact Us</a>
+      </div> 
+</head>
+<body>
+    <center><h2>Client/Employee Management</h2>
+        <br><a href="portal.html"><button>Booking portal</button></a><a href="room-e.html"><button>Room Management</button></a></center>
+    <div class="roomed">
+        <form id="roomForm"></form>
+        <div class="form-section">
+            <h3>Client/Employee Management</h3>
+            <form id="personForm">
+                <label>
+                    First Name: <input type="text" id="firstName" required>
+                </label>
+                <br>
+                <label>
+                    Middle Name: <input type="text" id="middleName">
+                </label>
+                <br>
+                <label>
+                    Last Name: <input type="text" id="lastName" required>
+                </label>
+                <br>
+                <label>
+                    Address: <input type="text" id="address" required>
+                </label>
+                <br>
+                <label>
+                    Role:
+                    <input type="radio" name="role" id="roleManager" value="Manager"> Manager
+                    <input type="radio" name="role" id="roleEmployee" value="Employee"> Employee
+                    <input type="radio" name="role" id="roleCustomer" value="Customer"> Customer
+                </label>
+                <br>
+                <div id="registerDateField" style="display: none;">
+                    <label>
+                        Register Date: <input type="date" id="registerDate">
+                    </label>
+                    <br>
+                </div>
+                <label>
+                    ID Type:
+                    <input type="radio" name="idType" id="idTypeSSN" value="SSN"> SSN
+                    <input type="radio" name="idType" id="idTypeSIN" value="SIN"> SIN
+                    <input type="radio" name="idType" id="idTypeDL" value="Driver's License"> Driver's License
+                </label>        
+                <br>
+                <label>
+                    ID: <input type="text" id="id" required>
+                </label>
+                <br>
+                <button type="submit">Add/Update Person</button>
+            </form>
+        </div>
+        <div class="sidebar">
+            <h3>Clients/Employees</h3>
+            <div id="personList"></div>
+        </div>
+    
+</div>
+ </body>
+    <!--Footer-->
+    <footer>
+      <table class="footert">
+          <tr>
+            <td class="tdr">
+              <img class="logo" src="./images/logo-icon3.png">
+              <br>
+              <br><a href="_blank">Careers</a>
+              <br><a href="_blank">Privacy Policy</a>
+              <br><a href="_blank">Site Usage Agreement</a>
+              <br><a href="_blank">Terms & Conditions</a>
+            </td>
+            <td class="tdr">
+              How can we help?<br>
+              <br><a href="contact.html">Contact us</a>
+              <br>+1-800-832-3482
+          </td>
+          <td class="tdr">
+              Follow Us<br>
+              <br><a href="_blank"><img width="20px" src="./images/facebook.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/instagram.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/linkedin.png"></a>&nbsp;
+              <a href="_blank"><img width="20px" src="./images/twitter.png"></a>&nbsp;
+          </td>
+          </tr>
+        </table> 
+    </footer>
+  <script src="script.js"></script>
+</body>
+</html>
