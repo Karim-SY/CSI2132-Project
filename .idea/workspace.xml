@@ -5,59 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85be978f-42f5-4589-898d-ea759a42917e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/catalina.policy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/catalina.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/context.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/jaspic-providers.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/jaspic-providers.xsd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/logging.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/server.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/tomcat-users.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/tomcat-users.xsd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.smarttomcat/HotelSite/conf/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CorsFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/about.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/booking.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cemanagement-e.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/confirmation.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/contact.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/background-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/background-white.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/beach.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/facebook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/hotel-main.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/instagram.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/linkedin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/logo-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/logo-icon3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/mountains.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/pool.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/pool2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/pool3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/pool4.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/queen.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/roomking.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/twin.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/twitter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/offers.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/portal-book.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/portal.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/register-e.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/room-e.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin-e.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,9 +21,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2upChHQI99ze6z7yHBZjH5vmUEV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -77,16 +38,33 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Smart Tomcat.Hotel.executor": "Run",
+    "Smart Tomcat.Unnamed.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Shekh/Documents/GitHub/CSI2132-Project",
-    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="HotelSite" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Hotel" type="com.poratu.idea.plugins.tomcat">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
       <predefined_log_file id="Tomcat Catalina Log" />
@@ -95,9 +73,6 @@
       <option name="catalinaBase" value="C:\Users\Shekh\.SmartTomcat\CSI2132-Project\HotelSite" />
       <option name="contextPath" value="/HotelSite" />
       <option name="docBase" value="$PROJECT_DIR$/HotelSite/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="tomcatInfo">
         <TomcatInfo>
@@ -112,6 +87,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

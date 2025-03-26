@@ -234,19 +234,14 @@ function updatePrice() {
     };
 })();
 
-function displayOutput(){
-    const outputElement = document.getElementByID("output");
-    const result = bookRoom();
-    outputElement.textContent = result;
-}
-
 function bookRoom() {
     fetch('http://localhost:8080/HotelSite')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const outputElement = document.getElementByID("output");
+
+        const outputElement = document.getElementById('output')
         const result = response.text();
         outputElement.textContent = result;
         return response.text(); // Parse the response as plain text

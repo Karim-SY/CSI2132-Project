@@ -32,7 +32,7 @@
   <form id="bookingForm">
     <h2>Find a Hotel</h2>
     <label id="hotel" for="hotel">Select Hotel Chain:
-    <select>
+    <select id = locationSelection>
         <option value="NewYork">Grand Horizon New York</option>
         <option value="Aspen">Grand Horizon Aspen Retreat</option>
         <option value="Miami">Grand Horizon Miami Beach</option>
@@ -85,7 +85,7 @@
       &#10003;Breakfast included
       &#10003;Fitness center
       &#10003;Business center</p>
-    <br><button type="button" onclick="bookRoom()">Book room</button></a>
+    <br><a href="confirmation.html"><button type="button" onclick="bookRoom()">Book room</button></a>
   </div>
   <div class="room">
     <h3>1 Queen Bed Room</h3>
@@ -145,6 +145,6 @@
           </tr>
         </table> 
     </footer>
-  <script src="script.js"></script>
+  <script src="booking.js"></script>
 </body>
 </html>
