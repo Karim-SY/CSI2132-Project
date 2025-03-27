@@ -4,12 +4,6 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <dependency>
-    <groupId>org.apache.tomcat</groupId>
-    <artifactId>tomcat-catalina</artifactId>
-    <version>your_tomcat_version</version>
-  </dependency>
-
   <filter>
     <filter-name>CorsFilter</filter-name>
     <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>

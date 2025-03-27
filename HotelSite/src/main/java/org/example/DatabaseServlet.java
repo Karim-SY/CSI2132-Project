@@ -11,18 +11,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.node.*;
 
-@WebServlet("/HotelSite")
+@WebServlet("/database")
 public class DatabaseServlet extends HttpServlet {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("application/json;charset=UTF-8");
         try{
             String queryType = request.getParameter("queryType");
-
-            PrintWriter out = null;
 
             Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgre");
             Statement st = db.createStatement();
@@ -32,38 +34,17 @@ public class DatabaseServlet extends HttpServlet {
             switch (queryType){
                 case "GetChainNames":
                     sql = "SELECT \"Chain_Name\", \"Address\" FROM \"Hotel_Chain\"";
+                    break;
 
                 case "GetSomethingElse":
                     sql = "something";
+                    break;
 
             }
 
             ResultSet rs = st.executeQuery(sql);
-
-            //case handling for parsing data of differing column sizes
-            switch (queryType){
-                case "GetChainNames":
-                    String output = "";
-                    while (rs.next()){
-                        output = output + rs.getString(1) + "_";
-                        output = output + rs.getString(2) + "\n";
-                    }
-                    System.out.print(output);
-                    String[] temp = {};
-                    String[] temp2 = {};
-                    String finalStr = "";
-                    temp = output.split("\n");
-                    for (String s : temp) {
-                        temp2 = s.split("_");
-                        finalStr = finalStr + "<option value=\"" + temp2[1] + "\">" + temp2[0] + "</option>\n";
-                    }
-                    out.println(finalStr);
-                    System.out.println(finalStr);
-
-                case "GetSomethingElse":
-                    sql = "something";
-
-            }
+            ArrayNode jsonArray = convertResultSetToJson(rs);
+            response.getWriter().write(objectMapper.writeValueAsString(jsonArray));
 
 
             rs.close();
@@ -78,9 +59,28 @@ public class DatabaseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Handle POST requests here
-        response.setContentType("text/html");
+        response.setContentType("application/json;charset=UTF-8");
         System.out.println("<html><body>");
         System.out.println("<h1>You sent a POST request!</h1>");
         System.out.println("</body></html>");
+    }
+
+
+    private ArrayNode convertResultSetToJson(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        ArrayNode jsonArray = objectMapper.createArrayNode();
+
+        while (resultSet.next()) {
+            ObjectNode jsonObject = objectMapper.createObjectNode();
+            for (int i = 1; i <= columnCount; i++) {
+                String columnName = metaData.getColumnName(i);
+                Object columnValue = resultSet.getObject(i);
+                jsonObject.putPOJO(columnName, columnValue); // Handles various data types
+            }
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
     }
 }
