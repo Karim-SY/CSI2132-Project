@@ -26,7 +26,7 @@ public class DatabaseServlet extends HttpServlet {
         try{
             String queryType = request.getParameter("queryType");
 
-            Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgre");
+            Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgres");
             Statement st = db.createStatement();
             String sql = null;
 
@@ -36,8 +36,8 @@ public class DatabaseServlet extends HttpServlet {
                     sql = "SELECT \"Chain_Name\", \"Address\" FROM \"Hotel_Chain\"";
                     break;
 
-                case "GetSomethingElse":
-                    sql = "something";
+                case "GetContacts":
+                    sql = "SELECT \"Chain_Name\", \"Phone\" FROM \"Hotel_Chain\";";
                     break;
 
             }
@@ -60,9 +60,28 @@ public class DatabaseServlet extends HttpServlet {
             throws ServletException, IOException {
         // Handle POST requests here
         response.setContentType("application/json;charset=UTF-8");
-        System.out.println("<html><body>");
-        System.out.println("<h1>You sent a POST request!</h1>");
-        System.out.println("</body></html>");
+        try{
+            String queryType = request.getParameter("queryType");
+
+            Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgres");
+            Statement st = db.createStatement();
+            String sql = null;
+
+            switch (queryType){
+                case "insertPerson":
+                    sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\")\n" +
+                            "VALUES ('A123-456', 'John Doe', '123 Main St, New York, NY', 'SSN');";
+                    break;
+
+                case "PostSomethingElse":
+                    sql = "something";
+                    break;
+
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

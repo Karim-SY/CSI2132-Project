@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85be978f-42f5-4589-898d-ea759a42917e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CSI2132-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSI2132-Project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/.smarttomcat/HotelSite/conf/server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/.smarttomcat/HotelSite/conf/server.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/register-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/register-e.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +41,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Smart Tomcat.Hotel.executor": "Run",
+    "Smart Tomcat.HotelServer.executor": "Run",
     "Smart Tomcat.Unnamed.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",

@@ -234,25 +234,6 @@ function updatePrice() {
     };
 })();
 
-function bookRoom() {
-    fetch('http://localhost:8080/HotelSite')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
 
-        const outputElement = document.getElementById('output')
-        const result = response.text();
-        outputElement.textContent = result;
-        return response.text(); // Parse the response as plain text
-      })
-      .then(htmlText => {
-        console.log('HTML received from servlet:', htmlText);
-        // You can now insert this HTML into your page
-        document.getElementById('content-container').innerHTML = htmlText;
-      })
-      .catch(error => {
-        console.error('Error fetching HTML:', error);
-      });
 }
 
