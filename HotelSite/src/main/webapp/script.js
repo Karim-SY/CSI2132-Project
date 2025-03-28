@@ -232,8 +232,6 @@ function updatePrice() {
 
         editingIndexPerson = index;
     };
-})();
-
-
+    })();
 }
 

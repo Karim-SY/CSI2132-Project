@@ -30,33 +30,33 @@
     <center>
   <div>
         <h2>Customer registration</h2> 
-        <p>Register now to start earnign Horizon reward points!</p>
+        <p>Register now to start earning Horizon reward points!</p>
   </div>
   <div class="signin">
     <form>
         <br><br><label>First name:</label>
-            <input type="text" maxlength="15">
+            <input id = "F_name" type="text" maxlength="15">
 
         <br><br><label>Middle name:</label>
-        <input type="text" maxlength="15"> 
+        <input id = "M_name" type="text" maxlength="15">
 
         <br><br><label>Last name:</label>
-        <input type="text" maxlength="15"> 
+        <input id = "L_name" type="text" maxlength="15">
 
         <br><br><label>Address:</label>
-        <input type="text" maxlength="50"> 
+        <input id = "Addr" type="text" maxlength="50">
 
-        <br><br><label id="ID">Select ID type:
-        <select>
-          <option value="SSN">SSN</option>
-          <option value="SIN">SIN</option>
-          <option value="License">Driver's License</option>
+        <br><br><label for="ID_select">Select ID type:
+        <select id="ID_select">
+            <option value="SSN">SSN</option>
+            <option value="SIN">SIN</option>
+            <option value="License">Driver's License</option>
         </select></label>
 
-        <br><br><label id="ID">ID:
-            <input type="text" maxlength="20"></label>
+        <br><br><label >ID:
+            <input id="ID" type="text" maxlength="20"></label>
 
-            <br><br><a href="index.html"><button type="button">Register</button></a>
+        <br><br><button onclick="register()" type="button">Register</button>
          
       </div>
     </form>
@@ -89,6 +89,6 @@
           </tr>
         </table> 
     </footer>
-  <script src="script.js"></script>
+  <script src="registrationScripts.js"></script>
 </body>
 </html>

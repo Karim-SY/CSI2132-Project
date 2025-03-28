@@ -60,6 +60,12 @@ public class DatabaseServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         Connection db = null;
         PreparedStatement pstmt = null;
+        String ID = "";
+        String Name = "";
+        String Address = "";
+        String ID_Type = "";
+        String Role = "";
+        String sql = "";
         try{
             String queryType = request.getParameter("queryType");
 
@@ -67,13 +73,13 @@ public class DatabaseServlet extends HttpServlet {
 
             switch (queryType){
                 case "RegEmployee":
-                    String ID = request.getParameter("ID");
-                    String Name = request.getParameter("Name");
-                    String Address = request.getParameter("Address");
-                    String ID_Type = request.getParameter("ID_Type");
-                    String Role = request.getParameter("Role");
+                    ID = request.getParameter("ID");
+                    Name = request.getParameter("Name");
+                    Address = request.getParameter("Address");
+                    ID_Type = request.getParameter("ID_Type");
+                    Role = request.getParameter("Role");
 
-                    String sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\") VALUES (?, ?, ?, ?);\n  INSERT INTO \"Employee\" (\"ID\", \"Name\", \"Address\", \"Role\") VALUES (?, ?, ?, ?);";
+                    sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\") VALUES (?, ?, ?, ?);\n  INSERT INTO \"Employee\" (\"ID\", \"Name\", \"Address\", \"Role\") VALUES (?, ?, ?, ?);";
 
                     pstmt = db.prepareStatement(sql);
                     pstmt.setString(1, ID);
@@ -85,6 +91,20 @@ public class DatabaseServlet extends HttpServlet {
                     pstmt.setString(7, Address);
                     pstmt.setString(8, Role);
                     break;
+
+                case "RegUser":
+                    ID = request.getParameter("ID");
+                    Name = request.getParameter("Name");
+                    Address = request.getParameter("Address");
+                    ID_Type = request.getParameter("ID_Type");
+
+                    sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\") VALUES (?, ?, ?, ?);";
+
+                    pstmt = db.prepareStatement(sql);
+                    pstmt.setString(1, ID);
+                    pstmt.setString(2, Name);
+                    pstmt.setString(3, Address);
+                    pstmt.setString(4, ID_Type);
 
                 case "PostSomethingElse":
                     // Handle other query types with PreparedStatement as well
