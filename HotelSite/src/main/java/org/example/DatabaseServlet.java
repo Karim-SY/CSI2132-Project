@@ -1,6 +1,5 @@
 package org.example;
 
-import com.sun.tools.jconsole.JConsoleContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
 
 import com.fasterxml.jackson.databind.*;
@@ -26,7 +24,7 @@ public class DatabaseServlet extends HttpServlet {
         try{
             String queryType = request.getParameter("queryType");
 
-            Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgres");
+            Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgre");
             Statement st = db.createStatement();
             String sql = null;
 
@@ -60,27 +58,54 @@ public class DatabaseServlet extends HttpServlet {
             throws ServletException, IOException {
         // Handle POST requests here
         response.setContentType("application/json;charset=UTF-8");
+        Connection db = null;
+        PreparedStatement pstmt = null;
         try{
             String queryType = request.getParameter("queryType");
 
-            Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgres");
-            Statement st = db.createStatement();
-            String sql = null;
+            db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgre");
 
             switch (queryType){
-                case "insertPerson":
-                    sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\")\n" +
-                            "VALUES ('A123-456', 'John Doe', '123 Main St, New York, NY', 'SSN');";
+                case "RegEmployee":
+                    String ID = request.getParameter("ID");
+                    String Name = request.getParameter("Name");
+                    String Address = request.getParameter("Address");
+                    String ID_Type = request.getParameter("ID_Type");
+                    String Role = request.getParameter("Role");
+
+                    String sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\") VALUES (?, ?, ?, ?);\n  INSERT INTO \"Employee\" (\"ID\", \"Name\", \"Address\", \"Role\") VALUES (?, ?, ?, ?);";
+
+                    pstmt = db.prepareStatement(sql);
+                    pstmt.setString(1, ID);
+                    pstmt.setString(2, Name);
+                    pstmt.setString(3, Address);
+                    pstmt.setString(4, ID_Type);
+                    pstmt.setString(5, ID);
+                    pstmt.setString(6, Name);
+                    pstmt.setString(7, Address);
+                    pstmt.setString(8, Role);
                     break;
 
                 case "PostSomethingElse":
-                    sql = "something";
+                    // Handle other query types with PreparedStatement as well
                     break;
-
             }
+
+            if (pstmt != null) {
+                pstmt.executeUpdate(); // Use executeUpdate for INSERT, UPDATE, DELETE
+            }
+
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            // Close resources in a finally block to ensure they are always closed
+            try {
+                if (pstmt != null) pstmt.close();
+                if (db != null) db.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Log any errors during closing
+            }
         }
     }
 

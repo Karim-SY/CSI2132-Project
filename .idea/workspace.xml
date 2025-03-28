@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/register-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/register-e.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
