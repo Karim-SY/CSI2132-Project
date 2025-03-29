@@ -1,3 +1,45 @@
+window.onload = function () {
+    topbar_Modifier();
+};
+
+function topbar_Modifier(){
+    let logged = false;
+    let employee = false;
+    let ID = "None";
+    const cookieName = "logged"
+
+    const cookies = document.cookie.split("; ");
+    const cookieExists = document.cookie.split("; ").some(cookie => cookie.startsWith(`${cookieName}=`));
+    console.log(cookieExists ? "Cookie exists!" : "Cookie not found.");
+    let top_bar = document.getElementById("top_bar");
+    let top_nav = document.getElementById("top_nav");
+
+    if (cookieExists){
+        console.log(cookies);
+        for (let cookie of cookies) {
+            let [key, value] = cookie.split("=");
+            if (key === 'logged') {
+                logged = value;
+            }
+            else if (key === 'employee'){
+                employee = value;
+            }
+            else if (key === 'ID'){
+                ID = value;
+            }
+        }
+        if (logged === 'true'){
+            if (employee === 'true'){
+                console.log("flag1");
+                top_bar.innerHTML  = "<a onClick=\"logout()\">Sign Out</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"portal.html\">Employee portal</a>";
+            }
+            else{
+                top_bar.innerHTML  = "<a onClick=\"logout()\">Sign Out</a>";
+            }
+        }
+    }
+}
+
 function searchHotels() {
     const hotel = document.getElementById("hotel").value;
     const guests = document.getElementById("guests").value;
@@ -18,6 +60,89 @@ function searchHotels() {
         <p>Check-out: <strong>${checkout}</strong></p>
         <p>Main Attraction: <strong>${attraction}</strong></p>
     `;
+}
+
+function logout() {
+    document.cookie = `logged=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+    document.cookie = `employee=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+    document.cookie = `ID=0; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+    window.location.reload();
+}
+
+function checkID(){
+    const ID = document.getElementById('ID').value;
+    const params = new URLSearchParams({
+        queryType: "checkID",
+        ID: ID
+      });
+
+    fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log(response);
+        return response.json();
+    })
+    .then((info) => {
+        console.log("Success:", info);
+        if (info && info.length > 0 && info[0].exists === true) {
+            console.log("ID exists!")
+            document.cookie = `logged=true; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+            document.cookie = `employee=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+            document.cookie = `ID=${ID}; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+            window.location.assign("index.html");
+            return true;
+            window.location.reload();
+        }
+        else{
+            console.log("ID does not exist")
+            return false;
+        }
+
+    })
+    .catch((error) => {
+        console.error("Error sending data:", error);
+        return false;
+    });
+}
+
+function checkID_e(){
+    const ID = document.getElementById('ID').value;
+    const params = new URLSearchParams({
+        queryType: "checkEmpID",
+        ID: ID
+      });
+
+    fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log(response);
+        return response.json();
+    })
+    .then((info) => {
+        console.log("Success:", info);
+        if (info && info.length > 0 && info[0].exists === true) {
+            console.log("ID exists!")
+            document.cookie = `logged=true; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+            document.cookie = `employee=true; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+            document.cookie = `ID=${ID}; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+            window.location.assign("portal.html");
+            return true;
+            window.location.reload();
+        }
+        else{
+            console.log("ID does not exist")
+            return false;
+        }
+
+    })
+    .catch((error) => {
+        console.error("Error sending data:", error);
+        return false;
+    });
 }
 
 function updatePrice() {
@@ -232,6 +357,6 @@ function updatePrice() {
 
         editingIndexPerson = index;
     };
-    })();
-}
+})();
+
 

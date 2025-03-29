@@ -69,15 +69,6 @@ function setupEventListeners() {
       e.preventDefault();
       searchRooms();
     });
-
-  // Book room buttons
-  const bookButtons = document.querySelectorAll(".bookButton");
-  bookButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const roomId = this.getAttribute("data-room-id");
-      bookRoom(roomId);
-    });
-  });
 }
 
 // Update price display when the slider changes
@@ -90,14 +81,12 @@ function updatePrice() {
 function loadHotels() {
   // Show default options in case the server is down
   const defaultHotels = [
-    { id: "101", name: "Grand Horizon New York" },
-    { id: "102", name: "Grand Horizon Aspen Retreat" },
-    { id: "103", name: "Grand Horizon Miami Beach" },
-    { id: "104", name: "Grand Horizon Las Vegas" },
-    { id: "105", name: "Grand Horizon Napa Valley" },
+    { Chain_Name: "Luxury Stays", Address: "New York, USA" },
+    { Chain_Name: "Budget Inns", Address: "Los Angeles, USA" },
+    { Chain_Name: "Royal Suites", Address: "San Francisco, USA" },
+    { Chain_Name: "Global Comfort", Address: "Chicago, USA" },
+    { Chain_Name: "Family Resorts", Address: "Miami, USA" },
   ];
-
-  const dropdown = document.getElementById("locationSelection");
 
   // First try to load from the server
   fetch("http://localhost:8080/HotelSite/database?queryType=GetChainNames")
@@ -109,7 +98,6 @@ function loadHotels() {
     })
     .then((hotels) => {
       // Clear the dropdown and add new options
-      console.log(hotels);
       populateHotelDropdown(hotels);
     })
     .catch((error) => {
@@ -137,8 +125,8 @@ function populateHotelDropdown(hotels) {
   // Add each hotel as an option
   hotels.forEach((hotel) => {
     const option = document.createElement("option");
-    option.value = hotel.id || hotel.value;
-    option.textContent = hotel.name || hotel.text;
+    option.value = hotel.Chain_Name; // Use Chain_Name as the value
+    option.textContent = hotel.Chain_Name + " - " + hotel.Address; // Display both name and address
     dropdown.appendChild(option);
   });
 }
@@ -149,7 +137,7 @@ function searchRooms() {
   document.getElementById("loadingIndicator").style.display = "block";
 
   // Get form values
-  const hotelId = document.getElementById("locationSelection").value;
+  const hotelChain = document.getElementById("locationSelection").value;
   const rooms = document.getElementById("roomCount").value;
   const guests = document.getElementById("guestCount").value;
   const checkin = document.getElementById("checkinDate").value;
@@ -166,7 +154,8 @@ function searchRooms() {
 
   // Build query parameters
   const params = new URLSearchParams({
-    hotel: hotelId,
+    queryType: "SearchRooms",
+    hotelChain: hotelChain,
     rooms: rooms,
     guests: guests,
     checkin: checkin,
@@ -177,9 +166,7 @@ function searchRooms() {
   });
 
   // Try to fetch room data from server
-  fetch(
-    `http://localhost:8080/HotelSite/database?queryType=SearchRooms&${params.toString()}`
-  )
+  fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -192,10 +179,8 @@ function searchRooms() {
     })
     .catch((error) => {
       console.error("Error searching for rooms:", error);
-      // For demo, just scroll to existing results
-      document
-        .getElementById("resultsContainer")
-        .scrollIntoView({ behavior: "smooth" });
+      // For demo, display sample rooms
+      displaySampleRooms();
     })
     .finally(() => {
       // Hide loading indicator
@@ -234,65 +219,157 @@ function validateDates(checkin, checkout) {
 function displayRoomResults(rooms) {
   const resultsContainer = document.getElementById("resultsContainer");
 
-  // If we have actual room data, update the display
-  if (rooms && rooms.length > 0) {
-    resultsContainer.innerHTML = "";
+  // Clear previous results
+  resultsContainer.innerHTML = "";
 
+  // If we have room data, update the display
+  if (rooms && rooms.length > 0) {
     rooms.forEach((room) => {
+      const price = room.Price || room.price;
+      const amenities =
+        room.Amenities || room.amenities || "Free WiFi, Non-smoking";
+      const roomNum = room.Room_Num || room.roomNum;
+      const capacity = room.Capacity || room.capacity || 2;
+
+      // Determine an appropriate image based on room details
+      let imageSrc = "./images/roomking.jpeg";
+      if (capacity > 2) {
+        imageSrc = "./images/twin.jpeg";
+      } else if (price < 200) {
+        imageSrc = "./images/queen.jpeg";
+      }
+
+      // Create room element with formatted data
       resultsContainer.innerHTML += `
-                <div class="room">
-                    <h3>${room.name}</h3>
-                    <p>From $${room.price}/night</p>
-                    <img class="roomimage" src="${room.image}" alt="${
-        room.name
-      }">
-                    <p>${formatAmenities(room.amenities)}</p>
-                    <br>
-                    <button type="button" class="bookButton" data-room-id="${
-                      room.id
-                    }">Book room</button>
-                </div>
-            `;
+              <div class="room">
+                  <h3>Room ${roomNum}</h3>
+                  <p>From $${price}/night</p>
+                  <img class="roomimage" src="${imageSrc}" alt="Room Image">
+                  <p>${formatAmenities(amenities)}</p>
+                  <p>Max capacity: ${capacity} guests</p>
+                  <br>
+                  <button type="button" class="bookButton" data-room-id="${roomNum}">Book room</button>
+              </div>
+          `;
     });
 
     // Re-attach event listeners to the new buttons
-    const bookButtons = document.querySelectorAll(".bookButton");
-    bookButtons.forEach((button) => {
-      button.addEventListener("click", function () {
-        const roomId = this.getAttribute("data-room-id");
-        bookRoom(roomId);
-      });
-    });
+    attachBookButtonListeners();
+  } else {
+    // No rooms found
+    resultsContainer.innerHTML =
+      "<p>No available rooms match your criteria. Please try different search parameters.</p>";
   }
 
   // Scroll to results
   resultsContainer.scrollIntoView({ behavior: "smooth" });
 }
 
+// Display sample rooms when server is unavailable
+function displaySampleRooms() {
+  const resultsContainer = document.getElementById("resultsContainer");
+
+  // Clear previous results
+  resultsContainer.innerHTML = "";
+
+  // Sample room data
+  const sampleRooms = [
+    {
+      roomNum: "101",
+      price: 233,
+      capacity: 2,
+      amenities:
+        "Free WiFi, Non-smoking, On-site restaurant, Indoor pool, Outdoor pool, Breakfast included, Fitness center, Business center",
+      imageSrc: "./images/roomking.jpeg",
+      name: "1 King Bed Room",
+    },
+    {
+      roomNum: "102",
+      price: 200,
+      capacity: 2,
+      amenities:
+        "Free WiFi, Non-smoking, On-site restaurant, Indoor pool, Outdoor pool, Breakfast included, Fitness center, Business center",
+      imageSrc: "./images/queen.jpeg",
+      name: "1 Queen Bed Room",
+    },
+    {
+      roomNum: "103",
+      price: 175,
+      capacity: 4,
+      amenities:
+        "Free WiFi, Non-smoking, On-site restaurant, Indoor pool, Outdoor pool, Breakfast included, Fitness center, Business center",
+      imageSrc: "./images/twin.jpeg",
+      name: "2 Twin Beds Room",
+    },
+  ];
+
+  // Create sample room elements
+  sampleRooms.forEach((room) => {
+    resultsContainer.innerHTML += `
+          <div class="room">
+              <h3>${room.name}</h3>
+              <p>From $${room.price}/night</p>
+              <img class="roomimage" src="${room.imageSrc}" alt="${room.name}">
+              <p>${formatAmenities(room.amenities)}</p>
+              <p>Max capacity: ${room.capacity} guests</p>
+              <br>
+              <button type="button" class="bookButton" data-room-id="${
+                room.roomNum
+              }">Book room</button>
+          </div>
+      `;
+  });
+
+  // Add a notice that this is sample data
+  resultsContainer.innerHTML +=
+    '<p class="notice">Note: Showing sample data. Could not connect to the server.</p>';
+
+  // Re-attach event listeners to the new buttons
+  attachBookButtonListeners();
+
+  // Scroll to results
+  resultsContainer.scrollIntoView({ behavior: "smooth" });
+}
+
+// Attach event listeners to book buttons
+function attachBookButtonListeners() {
+  const bookButtons = document.querySelectorAll(".bookButton");
+  bookButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const roomId = this.getAttribute("data-room-id");
+      bookRoom(roomId);
+    });
+  });
+}
+
 // Format room amenities list
 function formatAmenities(amenities) {
   if (typeof amenities === "string") {
-    return amenities; // Already formatted
+    // Split by commas and format
+    return amenities
+      .split(",")
+      .map((amenity) => `&#10003; ${amenity.trim()}`)
+      .join("<br>");
   }
 
   if (Array.isArray(amenities)) {
     return amenities.map((amenity) => `&#10003; ${amenity}`).join("<br>");
   }
 
-  return "";
+  return "&#10003; Standard amenities";
 }
 
 // Book a room
 function bookRoom(roomId) {
   // Get form values for the booking
-  const hotelId = document.getElementById("locationSelection").value;
+  const hotelChain = document.getElementById("locationSelection").value;
   const checkin = document.getElementById("checkinDate").value;
   const checkout = document.getElementById("checkoutDate").value;
   const guests = document.getElementById("guestCount").value;
 
   // Store booking details in session storage to use on the confirmation page
   const bookingDetails = {
-    hotelId: hotelId,
+    hotelChain: hotelChain,
     roomId: roomId,
     checkin: checkin,
     checkout: checkout,

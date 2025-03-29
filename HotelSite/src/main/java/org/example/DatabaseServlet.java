@@ -27,6 +27,7 @@ public class DatabaseServlet extends HttpServlet {
             Connection db = DriverManager.getConnection("jdbc:postgresql:postgres", "postgres", "postgre");
             Statement st = db.createStatement();
             String sql = null;
+            String ID = "";
 
             //Case handling for SQL command building
             switch (queryType){
@@ -38,7 +39,52 @@ public class DatabaseServlet extends HttpServlet {
                     sql = "SELECT \"Chain_Name\", \"Phone\" FROM \"Hotel_Chain\";";
                     break;
 
+                case "SearchRooms":
+                    String hotelChain = request.getParameter("hotelChain");
+                    String maxPrice = request.getParameter("maxPrice");
+                    String guests = request.getParameter("guests");
+                    String attraction = request.getParameter("attraction");
+                    // Build the SQL query with parameters
+                    StringBuilder sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("SELECT r.\"Hotel_Num\", r.\"Room_Num\", r.\"Price\", r.\"Amenities\", r.\"Capacity\", r.\"View\" ");
+                    sqlBuilder.append("FROM \"Room\" r ");
+                    sqlBuilder.append("JOIN \"Hotel\" h ON r.\"Hotel_Num\" = h.\"Hotel_Num\" ");
+                    sqlBuilder.append("JOIN \"Owns\" o ON h.\"Hotel_Num\" = o.\"Hotel_Num\" ");
+                    sqlBuilder.append("WHERE o.\"Chain_Name\" = '").append(hotelChain).append("' ");
+                    sqlBuilder.append("AND r.\"Booked\" = FALSE ");
+                    // Add filter for price if provided
+                    if (maxPrice != null && !maxPrice.isEmpty()) {
+                        sqlBuilder.append("AND r.\"Price\" <= ").append(maxPrice).append(" ");
+                    }
+                    // Add filter for capacity if guests parameter is provided
+                    if (guests != null && !guests.isEmpty()) {
+                        sqlBuilder.append("AND r.\"Capacity\" >= ").append(guests).append(" ");
+                    }
+                    // Add filter for view/attraction if provided
+                    if (attraction != null && !attraction.isEmpty()) {
+                        if (attraction.equals("Mountains")) {
+                            sqlBuilder.append("AND r.\"View\" = 'mountain' ");
+                        } else if (attraction.equals("Beach")) {
+                            sqlBuilder.append("AND r.\"View\" = 'sea' ");
+                        } else {
+                            sqlBuilder.append("AND r.\"View\" = 'other' ");
+                        }
+                    }
+                    // Order by price
+                    sqlBuilder.append("ORDER BY r.\"Price\" ASC");
+                    sql = sqlBuilder.toString();
+                    break;
+
+                case "checkID":
+                    ID = request.getParameter("ID");
+                    sql = "SELECT EXISTS ( SELECT 1 FROM \"Person\" WHERE \"ID\" = '" + ID + "' );";
+                    break;
+                case "checkEmpID":
+                    ID = request.getParameter("ID");
+                    sql = "SELECT EXISTS ( SELECT 1 FROM \"Employee\" WHERE \"ID\" = '" + ID + "' );";
+                    break;
             }
+
 
             ResultSet rs = st.executeQuery(sql);
             ArrayNode jsonArray = convertResultSetToJson(rs);
