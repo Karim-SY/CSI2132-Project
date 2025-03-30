@@ -149,6 +149,14 @@ public class DatabaseServlet extends HttpServlet {
 
                     sql = sqlBuilder.toString();
                     break;
+
+                case "deleteRoom":
+                    hotelNum = request.getParameter("hotelNum_Selection");
+                    roomNumber = request.getParameter("roomNumInput");
+                    sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("DELETE FROM \"Room\" WHERE \"Hotel_Num\" = ").append(hotelNum).append(" And \"Room_Num\" = ").append(roomNumber);
+                    sql = sqlBuilder.toString();
+                    break;
             }
 
 

@@ -52,7 +52,12 @@
                 </label>
                 <br>
                 <label>
-                    View: <input type="text" id="roomView">
+                    View: <label for="roomView">Area attraction:</label>
+                    <select id="roomView" name="attraction">
+                        <option value="mountain">Mountain view</option>
+                        <option value="sea">Beachfront resort</option>
+                        <option value="other">Bustling city core</option>
+                    </select>
                 </label>
                 <br>
                 <label>
@@ -89,7 +94,7 @@
                 <br>
 
             </form>
-            <button onClick="add_update()" type="submit">Add/Update Room</button> <button type="submit">Remove Room</button>
+            <button onClick="add_update()" type="submit">Add/Update Room</button> <button onClick="deleteRoom()" type="submit">Remove Room</button>
         </div>
         <div class="sidebar">
             <label for="hotelNumber">Select Hotel Number:</label>

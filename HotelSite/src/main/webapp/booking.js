@@ -58,6 +58,8 @@ function logout() {
     document.cookie = `employee=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
     document.cookie = `ID=0; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
     window.location.reload();
+    window.location.href = "index.html";
+
 }
 
 

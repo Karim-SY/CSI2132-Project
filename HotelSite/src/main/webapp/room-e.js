@@ -57,40 +57,42 @@ function logout() {
     document.cookie = `logged=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
     document.cookie = `employee=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
     document.cookie = `ID=0; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+
     window.location.reload();
+    window.location.href = "index.html";
 }
 
+function deleteRoom() {
+    const roomNumInput = document.getElementById("roomNumber").value;
+    const hotelNum_Selection = document.getElementById("hotelNumberInput").value;
 
-// Set minimum dates for check-in (today) and check-out (tomorrow)
-function setMinDates() {
-  const today = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
+    const params = new URLSearchParams({
+        queryType: "deleteRoom",
+        roomNumInput: roomNumInput,
+        hotelNum_Selection: hotelNum_Selection
+      });
 
-  // Format dates as YYYY-MM-DD
-  const todayFormatted = formatDate(today);
-  const tomorrowFormatted = formatDate(tomorrow);
-
-  // Set minimum dates and default values
-  document.getElementById("checkinDate").min = todayFormatted;
-  document.getElementById("checkinDate").value = todayFormatted;
-
-  document.getElementById("checkoutDate").min = tomorrowFormatted;
-  document.getElementById("checkoutDate").value = tomorrowFormatted;
-}
-
-// Format a date as YYYY-MM-DD
-function formatDate(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-// Update price display when the slider changes
-function updatePrice() {
-  const priceValue = document.getElementById("priceRange").value;
-  document.getElementById("priceValue").textContent = priceValue;
+      // Try to fetch room data from server
+      fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((rooms) => {
+          // Update room results
+          displayRoomResults(rooms);
+        })
+        .catch((error) => {
+          console.error("Error deleting room:", error);
+          // For demo, display sample rooms
+          displaySampleRooms();
+        })
+        .finally(() => {
+          // Hide loading indicator
+          document.getElementById("loadingIndicator").style.display = "none";
+        });
 }
 
 function loadHotelNums() {
@@ -218,8 +220,7 @@ function displayRoomResults(rooms) {
           `;
     });
 
-    // Re-attach event listeners to the new buttons
-    attachBookButtonListeners();
+
   } else {
     // No rooms found
     resultsContainer.innerHTML =
@@ -269,7 +270,7 @@ function add_update(){
           displayRoomResults(rooms);
         })
         .catch((error) => {
-          console.error("Error searching for rooms:", error);
+          console.error("Error adding for room:", error);
           // For demo, display sample rooms
           displaySampleRooms();
         })

@@ -8,8 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/registrationScripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/registrationScripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +45,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Smart Tomcat.Hotel.executor": "Run",
-    "Smart Tomcat.HotelServer.executor": "Debug",
+    "Smart Tomcat.HotelServer.executor": "Run",
     "Smart Tomcat.Unnamed.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
@@ -131,16 +134,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java</url>
-          <line>149</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
