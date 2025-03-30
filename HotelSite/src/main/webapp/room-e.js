@@ -1,16 +1,16 @@
 // Initialize everything when the page loads
 window.onload = function () {
   // Set minimum dates for check-in and check-out
-  setMinDates();
+  //setMinDates();
 
   // Load hotel chains from the server
-  loadHotels();
-
+  //loadHotels();
+  loadHotelNums();
   // Set up event listeners
-  setupEventListeners();
+  //setupEventListeners();
 
   // Initialize price range display
-  updatePrice();
+  //updatePrice();
 
   topbar_Modifier();
 };
@@ -87,89 +87,39 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-// Setup all event listeners
-function setupEventListeners() {
-  // Price range slider
-  document.getElementById("priceRange").addEventListener("input", updatePrice);
-
-  // Check-in date changes
-  document
-    .getElementById("checkinDate")
-    .addEventListener("change", function () {
-      // Update minimum checkout date to be at least one day after check-in
-      const checkinDate = new Date(this.value);
-      const nextDay = new Date(checkinDate);
-      nextDay.setDate(checkinDate.getDate() + 1);
-
-      const checkoutInput = document.getElementById("checkoutDate");
-      checkoutInput.min = formatDate(nextDay);
-
-      // If current checkout date is before new check-in date, update it
-      if (new Date(checkoutInput.value) <= checkinDate) {
-        checkoutInput.value = formatDate(nextDay);
-      }
-    });
-
-  // Form submission
-  document
-    .getElementById("bookingForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-      searchRooms();
-    });
-}
-
 // Update price display when the slider changes
 function updatePrice() {
   const priceValue = document.getElementById("priceRange").value;
   document.getElementById("priceValue").textContent = priceValue;
 }
 
-// Load hotel chains from the server
-function loadHotels() {
-  // Show default options in case the server is down
-  const defaultHotels = [
-    { Chain_Name: "Luxury Stays", Address: "New York, USA" },
-    { Chain_Name: "Budget Inns", Address: "Los Angeles, USA" },
-    { Chain_Name: "Royal Suites", Address: "San Francisco, USA" },
-    { Chain_Name: "Global Comfort", Address: "Chicago, USA" },
-    { Chain_Name: "Family Resorts", Address: "Miami, USA" },
-  ];
+function loadHotelNums() {
+    fetch("http://localhost:8080/HotelSite/database?queryType=searchHotelNum")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json(); // Expect a JSON response
+        })
+        .then((hotels) => {
+          // Clear the dropdown and add new options
+          populateHotelNumDropdown(hotels);
+        })
+        .catch((error) => {
+          console.error("Error loading hotels from server:", error);
+          // If there's an error, use the default hotels
 
-  // First try to load from the server
-  fetch("http://localhost:8080/HotelSite/database?queryType=GetChainNames")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json(); // Expect a JSON response
-    })
-    .then((hotels) => {
-      // Clear the dropdown and add new options
-      populateHotelDropdown(hotels);
-    })
-    .catch((error) => {
-      console.error("Error loading hotels from server:", error);
-      // If there's an error, use the default hotels
-      populateHotelDropdown(defaultHotels);
-
-      // Show a message about using default data
-      const errorMessages = document.getElementById("errorMessages");
-      errorMessages.innerHTML =
-        "<p>Could not connect to the server. Using sample data instead.</p>";
-      errorMessages.style.display = "block";
-    });
+          // Show a message about using default data
+          const errorMessages = document.getElementById("errorMessages");
+          errorMessages.innerHTML =
+            "<p>Could not connect to the server. Using sample data instead.</p>";
+          errorMessages.style.display = "block";
+        });
 }
 
 // Populate the hotel dropdown with options
 function populateHotelDropdown(hotels) {
   const dropdown = document.getElementById("locationSelection");
-
-  // Clear existing options except the first one
-  while (dropdown.options.length > 1) {
-    dropdown.remove(1);
-  }
-
   // Add each hotel as an option
   hotels.forEach((hotel) => {
     const option = document.createElement("option");
@@ -179,38 +129,35 @@ function populateHotelDropdown(hotels) {
   });
 }
 
+function populateHotelNumDropdown(nums){
+    const numDropdown1 = document.getElementById("hotelNumber");
+    const numDropdown2 = document.getElementById("hotelNumberInput");
+
+    nums.forEach((num) => {
+        const numoption = document.createElement("option")
+        numoption.value = num.Hotel_Num;
+        numoption.textContent = num.Hotel_Num;
+        numDropdown1.appendChild(numoption);
+    });
+    nums.forEach((num) => {
+        const numoption = document.createElement("option")
+        numoption.value = num.Hotel_Num;
+        numoption.textContent = num.Hotel_Num;
+        numDropdown2.appendChild(numoption);
+    });
+}
+
 // Search for available rooms based on form criteria
 function searchRooms() {
-  // Show loading indicator
-  document.getElementById("loadingIndicator").style.display = "block";
 
   // Get form values
-  const hotelChain = document.getElementById("locationSelection").value;
-  const rooms = document.getElementById("roomCount").value;
-  const guests = document.getElementById("guestCount").value;
-  const checkin = document.getElementById("checkinDate").value;
-  const checkout = document.getElementById("checkoutDate").value;
-  const attraction = document.getElementById("attractionType").value;
-  const stars = document.getElementById("starRating").value;
-  const maxPrice = document.getElementById("priceRange").value;
+  const hotelNum = document.getElementById("hotelNumber").value;
 
-  // Validate dates
-  if (!validateDates(checkin, checkout)) {
-    document.getElementById("loadingIndicator").style.display = "none";
-    return;
-  }
 
   // Build query parameters
   const params = new URLSearchParams({
-    queryType: "SearchRooms",
-    hotelChain: hotelChain,
-    rooms: rooms,
-    guests: guests,
-    checkin: checkin,
-    checkout: checkout,
-    attraction: attraction,
-    stars: stars,
-    maxPrice: maxPrice,
+    queryType: "getAllRooms",
+    hotelNum: hotelNum
   });
 
   // Try to fetch room data from server
@@ -231,41 +178,12 @@ function searchRooms() {
       displaySampleRooms();
     })
     .finally(() => {
-      // Hide loading indicator
-      document.getElementById("loadingIndicator").style.display = "none";
     });
-}
-
-// Validate check-in and check-out dates
-function validateDates(checkin, checkout) {
-  const checkinDate = new Date(checkin);
-  const checkoutDate = new Date(checkout);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const errorMessages = document.getElementById("errorMessages");
-  errorMessages.innerHTML = "";
-
-  if (checkinDate < today) {
-    errorMessages.innerHTML += "<p>Check-in date cannot be in the past.</p>";
-    errorMessages.style.display = "block";
-    return false;
-  }
-
-  if (checkoutDate <= checkinDate) {
-    errorMessages.innerHTML +=
-      "<p>Check-out date must be after check-in date.</p>";
-    errorMessages.style.display = "block";
-    return false;
-  }
-
-  errorMessages.style.display = "none";
-  return true;
 }
 
 // Display room search results
 function displayRoomResults(rooms) {
-  const resultsContainer = document.getElementById("resultsContainer");
+  const resultsContainer = document.getElementById("roomList");
 
   // Clear previous results
   resultsContainer.innerHTML = "";
@@ -296,7 +214,6 @@ function displayRoomResults(rooms) {
                   <p>${formatAmenities(amenities)}</p>
                   <p>Max capacity: ${capacity} guests</p>
                   <br>
-                  <button type="button" class="bookButton" data-room-id="${roomNum}">Book room</button>
               </div>
           `;
     });
@@ -311,6 +228,55 @@ function displayRoomResults(rooms) {
 
   // Scroll to results
   resultsContainer.scrollIntoView({ behavior: "smooth" });
+}
+
+function add_update(){
+    const roomNumInput = document.getElementById("roomNumber").value;
+    const hotelNum_Selection = document.getElementById("hotelNumberInput").value;
+    const priceInput = document.getElementById("roomPrice").value;
+    const capacityInput = document.getElementById("roomCapacity").value;
+    const viewInput = document.getElementById("roomView").value;
+    const amenitiesInput = document.getElementById("roomAmenities").value;
+    const extendableInput = document.getElementById("roomExtendable").value;
+    const occupiedInput = document.getElementById("roomOccupied").value;
+    const bookedInput = document.getElementById("roomBooked").value;
+
+
+
+    const params = new URLSearchParams({
+        queryType: "add_update_rooms",
+        roomNumInput: roomNumInput,
+        hotelNum_Selection: hotelNum_Selection,
+        priceInput: priceInput,
+        capacityInput: capacityInput,
+        viewInput: viewInput,
+        amenitiesInput: amenitiesInput,
+        extendableInput: extendableInput,
+        occupiedInput: occupiedInput,
+        bookedInput: bookedInput,
+      });
+
+      // Try to fetch room data from server
+      fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((rooms) => {
+          // Update room results
+          displayRoomResults(rooms);
+        })
+        .catch((error) => {
+          console.error("Error searching for rooms:", error);
+          // For demo, display sample rooms
+          displaySampleRooms();
+        })
+        .finally(() => {
+          // Hide loading indicator
+          document.getElementById("loadingIndicator").style.display = "none";
+        });
 }
 
 // Display sample rooms when server is unavailable
@@ -379,16 +345,6 @@ function displaySampleRooms() {
   resultsContainer.scrollIntoView({ behavior: "smooth" });
 }
 
-// Attach event listeners to book buttons
-function attachBookButtonListeners() {
-  const bookButtons = document.querySelectorAll(".bookButton");
-  bookButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const roomId = this.getAttribute("data-room-id");
-      bookRoom(roomId);
-    });
-  });
-}
 
 // Format room amenities list
 function formatAmenities(amenities) {
@@ -407,67 +363,3 @@ function formatAmenities(amenities) {
   return "&#10003; Standard amenities";
 }
 
-// Book a room
-function bookRoom(roomId) {
-  // Get form values for the booking
-  const hotelChain = document.getElementById("locationSelection").value;
-  const checkin = document.getElementById("checkinDate").value;
-  const checkout = document.getElementById("checkoutDate").value;
-  const guests = document.getElementById("guestCount").value;
-
-  // Store booking details in session storage to use on the confirmation page
-  const bookingDetails = {
-    hotelChain: hotelChain,
-    roomId: roomId,
-    checkin: checkin,
-    checkout: checkout,
-    guests: guests,
-  };
-
-  sessionStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
-
-  let logged = false;
-      let employee = false;
-      let ID = "None";
-      const cookieName = "logged"
-
-      const cookies = document.cookie.split("; ");
-      const cookieExists = document.cookie.split("; ").some(cookie => cookie.startsWith(`${cookieName}=`));
-      console.log(cookieExists ? "Cookie exists!" : "Cookie not found.");
-      let top_bar = document.getElementById("top_bar");
-      let top_nav = document.getElementById("top_nav");
-
-      if (cookieExists){
-          console.log(cookies);
-          for (let cookie of cookies) {
-              let [key, value] = cookie.split("=");
-              if (key === 'logged') {
-                  logged = value;
-              }
-              else if (key === 'employee'){
-                  employee = value;
-              }
-              else if (key === 'ID'){
-                  ID = value;
-              }
-          }
-      }
-
-
-  // Redirect to confirmation page
-  if (logged === 'true'){
-    if (employee === 'true'){
-        console.log("flag2");
-        window.location.href = "portal-book.html"
-    }
-    else{
-        console.log("flag2");
-        window.location.href = "confirmation.html";
-    }
-  }
-  else{
-    console.log("flag3");
-    window.location.href = "signin.html"
-  }
-
-}

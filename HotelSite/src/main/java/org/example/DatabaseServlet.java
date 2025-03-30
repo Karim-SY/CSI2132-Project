@@ -28,6 +28,21 @@ public class DatabaseServlet extends HttpServlet {
             Statement st = db.createStatement();
             String sql = null;
             String ID = "";
+            StringBuilder sqlBuilder = null;
+            String hotelChain = "";
+            String hotelNum = "";
+            String maxPrice = "";
+            String guests = "";
+            String attraction = "";
+            String roomNumber = "";
+            String Price = "";
+            String maxCap = "";
+            String amenities = "";
+            String damage = "";
+            boolean extend = false;
+            boolean occupied = false;
+            boolean booked = false;
+
 
             //Case handling for SQL command building
             switch (queryType){
@@ -39,13 +54,24 @@ public class DatabaseServlet extends HttpServlet {
                     sql = "SELECT \"Chain_Name\", \"Phone\" FROM \"Hotel_Chain\";";
                     break;
 
+                case "getAllRooms":
+                    hotelNum = request.getParameter("hotelNum");
+                    sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("SELECT r.\"Hotel_Num\", r.\"Room_Num\", r.\"Price\", r.\"Amenities\", r.\"Capacity\", r.\"View\" ");
+                    sqlBuilder.append("FROM \"Room\" r ");
+                    sqlBuilder.append("JOIN \"Hotel\" h ON r.\"Hotel_Num\" = h.\"Hotel_Num\" ");
+                    sqlBuilder.append("JOIN \"Owns\" o ON h.\"Hotel_Num\" = o.\"Hotel_Num\" ");
+                    sqlBuilder.append("WHERE o.\"Hotel_Num\" = '").append(hotelNum).append("' ");
+                    sql = sqlBuilder.toString();
+                    break;
+
                 case "SearchRooms":
-                    String hotelChain = request.getParameter("hotelChain");
-                    String maxPrice = request.getParameter("maxPrice");
-                    String guests = request.getParameter("guests");
-                    String attraction = request.getParameter("attraction");
+                    hotelChain = request.getParameter("hotelChain");
+                    maxPrice = request.getParameter("maxPrice");
+                    guests = request.getParameter("guests");
+                    attraction = request.getParameter("attraction");
                     // Build the SQL query with parameters
-                    StringBuilder sqlBuilder = new StringBuilder();
+                    sqlBuilder = new StringBuilder();
                     sqlBuilder.append("SELECT r.\"Hotel_Num\", r.\"Room_Num\", r.\"Price\", r.\"Amenities\", r.\"Capacity\", r.\"View\" ");
                     sqlBuilder.append("FROM \"Room\" r ");
                     sqlBuilder.append("JOIN \"Hotel\" h ON r.\"Hotel_Num\" = h.\"Hotel_Num\" ");
@@ -82,6 +108,46 @@ public class DatabaseServlet extends HttpServlet {
                 case "checkEmpID":
                     ID = request.getParameter("ID");
                     sql = "SELECT EXISTS ( SELECT 1 FROM \"Employee\" WHERE \"ID\" = '" + ID + "' );";
+                    break;
+                case "searchHotelNum":
+                    sql = "SELECT \"Hotel_Num\" FROM \"Hotel\"";
+                    break;
+                case "add_update_rooms":
+                    hotelNum = request.getParameter("hotelNum_Selection");
+                    roomNumber = request.getParameter("roomNumInput");
+                    Price = request.getParameter("priceInput");
+                    maxCap = request.getParameter("capacityInput");
+                    amenities = "'" + request.getParameter("amenitiesInput") + "'";
+                    extend = Boolean.parseBoolean(request.getParameter("extendableInput"));
+                    occupied = Boolean.parseBoolean(request.getParameter("occupiedInput"));
+                    booked = Boolean.parseBoolean(request.getParameter("bookedInput"));
+                    attraction = "'" + request.getParameter("viewInput") + "'";
+                    damage = null;
+                    sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("INSERT INTO \"Room\" (\"Hotel_Num\", \"Room_Num\", \"Booked\", \"Occupied\", \"Price\", \"Amenities\", \"Capacity\", \"View\", \"Extend\", \"Damage\") ");
+                    sqlBuilder.append("VALUES (").append(hotelNum).append(",");
+                    sqlBuilder.append(roomNumber).append(",");
+                    sqlBuilder.append(booked).append(",");
+                    sqlBuilder.append(occupied).append(",");
+                    sqlBuilder.append(Price).append(",");
+                    sqlBuilder.append(amenities).append(",");
+                    sqlBuilder.append(maxCap).append(",");
+                    sqlBuilder.append(attraction).append(",");
+                    sqlBuilder.append(extend).append(",");
+                    sqlBuilder.append(damage).append(") ");
+                    sqlBuilder.append("""
+                            ON CONFLICT ("Hotel_Num", "Room_Num")\s
+                            DO UPDATE SET\s
+                              "Booked" = EXCLUDED."Booked",
+                              "Occupied" = EXCLUDED."Occupied",
+                              "Price" = EXCLUDED."Price",
+                              "Amenities" = EXCLUDED."Amenities",
+                              "Capacity" = EXCLUDED."Capacity",
+                              "View" = EXCLUDED."View",
+                              "Extend" = EXCLUDED."Extend",
+                              "Damage" = EXCLUDED."Damage";""");
+
+                    sql = sqlBuilder.toString();
                     break;
             }
 

@@ -6,22 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="85be978f-42f5-4589-898d-ea759a42917e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/cemanagement-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/cemanagement-e.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/confirmation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/offers.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/offers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal-book.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal-book.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/register-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/register-e.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/registrationScripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/registrationScripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/signin-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/signin-e.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/signin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +42,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Smart Tomcat.Hotel.executor": "Run",
-    "Smart Tomcat.HotelServer.executor": "Run",
+    "Smart Tomcat.HotelServer.executor": "Debug",
     "Smart Tomcat.Unnamed.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
@@ -142,5 +131,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java</url>
+          <line>149</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

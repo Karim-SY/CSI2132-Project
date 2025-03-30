@@ -34,19 +34,21 @@
             <h3>Information</h3>
             <form id="roomForm">
                 <label>
-                    Room Number: <input type="text" id="roomNumber" required>
+                    Room Number: <input type="text" id="roomNumber">
                 </label>
                 <br>
-                <label>
-                    Room Name: <input type="text" id="roomName">
-                </label>
+                <label for="hotelNumberInput">Select Hotel Number:</label>
+                <select id="hotelNumberInput" name="hotel" required>
+                    <option value="" disabled selected>-- Select a Hotel Number --</option>
+                    <!-- Hotel options will be loaded by JavaScript -->
+                </select>
                 <br>
                 <label>
                     Price Per Night: <input type="number" id="roomPrice">
                 </label>
                 <br>
                 <label>
-                    Maximum Capacity: <input type="number" id="roomCapacity" required>
+                    Maximum Capacity: <input type="number" id="roomCapacity" >
                 </label>
                 <br>
                 <label>
@@ -85,10 +87,16 @@
                     Room Photo: <input type="file" id="roomPhoto" accept="image/*">
                 </label>
                 <br>
-                <button type="submit">Add/Update Room</button>
+
             </form>
+            <button onClick="add_update()" type="submit">Add/Update Room</button> <button type="submit">Remove Room</button>
         </div>
         <div class="sidebar">
+            <label for="hotelNumber">Select Hotel Number:</label>
+            <select id="hotelNumber" name="hotel" required>
+                <option value="" disabled selected>-- Select a Hotel Number --</option>
+                <!-- Hotel options will be loaded by JavaScript -->
+            </select><button onclick="searchRooms()" >Search</button>
             <h3>Rooms</h3>
             <div id="roomList"></div>
         </div>
@@ -122,6 +130,6 @@
           </tr>
         </table> 
     </footer>
-  <script src="script.js"></script>
+  <script src="room-e.js"></script>
 </body>
 </html>
