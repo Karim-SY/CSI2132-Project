@@ -1,3 +1,52 @@
+window.onload = function () {
+    topbar_Modifier();
+};
+
+function topbar_Modifier(){
+    let logged = false;
+    let employee = false;
+    let ID = "None";
+    const cookieName = "logged"
+
+    const cookies = document.cookie.split("; ");
+    const cookieExists = document.cookie.split("; ").some(cookie => cookie.startsWith(`${cookieName}=`));
+    console.log(cookieExists ? "Cookie exists!" : "Cookie not found.");
+    let top_bar = document.getElementById("top_bar");
+    let top_nav = document.getElementById("top_nav");
+
+    if (cookieExists){
+        console.log(cookies);
+        for (let cookie of cookies) {
+            let [key, value] = cookie.split("=");
+            if (key === 'logged') {
+                logged = value;
+            }
+            else if (key === 'employee'){
+                employee = value;
+            }
+            else if (key === 'ID'){
+                ID = value;
+            }
+        }
+        if (logged === 'true'){
+            if (employee === 'true'){
+                console.log("flag1");
+                top_bar.innerHTML  = "<a onClick=\"logout()\">Sign Out</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"portal.html\">Employee portal</a>";
+            }
+            else{
+                top_bar.innerHTML  = "<a onClick=\"logout()\">Sign Out</a>";
+            }
+        }
+    }
+}
+
+function logout() {
+    document.cookie = `logged=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+    document.cookie = `employee=false; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+    document.cookie = `ID=0; expires=Fri, 31 Dec 2030 23:59:59 GMT; path=/`;
+    window.location.reload();
+}
+
 function e_register(){
     const firstName = document.getElementById('F_name').value;
     const middleName = document.getElementById('M_name').value;
