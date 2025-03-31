@@ -276,6 +276,7 @@ function displayRoomResults(rooms) {
   if (rooms && rooms.length > 0) {
     rooms.forEach((room) => {
       const price = room.Price || room.price;
+      const hotelNum = room.Hotel_Num || room.hotelNum;
       const amenities =
         room.Amenities || room.amenities || "Free WiFi, Non-smoking";
       const roomNum = room.Room_Num || room.roomNum;
@@ -298,7 +299,7 @@ function displayRoomResults(rooms) {
                   <p>${formatAmenities(amenities)}</p>
                   <p>Max capacity: ${capacity} guests</p>
                   <br>
-                  <button type="button" class="bookButton" data-room-id="${roomNum}">Book room</button>
+                  <button type="button" class="bookButton" data-room-id="${roomNum}" data-hotel-num="${hotelNum}">Book room</button>
               </div>
           `;
     });
@@ -366,6 +367,7 @@ function displaySampleRooms() {
               <button type="button" class="bookButton" data-room-id="${
                 room.roomNum
               }">Book room</button>
+
           </div>
       `;
   });
@@ -387,7 +389,8 @@ function attachBookButtonListeners() {
   bookButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const roomId = this.getAttribute("data-room-id");
-      bookRoom(roomId);
+      const hotelId = this.getAttribute("data-hotel-num");
+      bookRoom(roomId, hotelId);
     });
   });
 }
@@ -410,7 +413,7 @@ function formatAmenities(amenities) {
 }
 
 // Book a room
-function bookRoom(roomId) {
+function bookRoom(roomId, hotelId) {
   // Get form values for the booking
   const hotelChain = document.getElementById("locationSelection").value;
   const checkin = document.getElementById("checkinDate").value;
@@ -420,6 +423,7 @@ function bookRoom(roomId) {
   // Store booking details in session storage to use on the confirmation page
   const bookingDetails = {
     hotelChain: hotelChain,
+    hotelId : hotelId,
     roomId: roomId,
     checkin: checkin,
     checkout: checkout,

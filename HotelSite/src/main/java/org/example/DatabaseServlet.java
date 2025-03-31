@@ -1,5 +1,8 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -39,6 +42,7 @@ public class DatabaseServlet extends HttpServlet {
             String maxCap = "";
             String amenities = "";
             String damage = "";
+            String roomNum = "";
             boolean extend = false;
             boolean occupied = false;
             boolean booked = false;
@@ -157,6 +161,70 @@ public class DatabaseServlet extends HttpServlet {
                     sqlBuilder.append("DELETE FROM \"Room\" WHERE \"Hotel_Num\" = ").append(hotelNum).append(" And \"Room_Num\" = ").append(roomNumber);
                     sql = sqlBuilder.toString();
                     break;
+
+                case "deletePerson":
+                    ID = request.getParameter("ID");
+                    sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("DELETE FROM \"Customer\" WHERE \"ID\" = '").append(ID).append("'; \n");
+                    sqlBuilder.append("DELETE FROM \"Manager\" WHERE \"ID\" = '").append(ID).append("'; \n");
+                    sqlBuilder.append("DELETE FROM \"Employee\" WHERE \"ID\" = '").append(ID).append("'; \n");
+                    sqlBuilder.append("DELETE FROM \"Person\" WHERE \"ID\" = '").append(ID).append("'; \n");
+                    sql = sqlBuilder.toString();
+                    break;
+
+
+                case "getPeople":
+                    sql = """
+                            SELECT
+                                p."ID" AS Person_ID,
+                                p."Name" AS Person_Name,
+                                p."Address" AS Person_Address,
+                                p."ID_Type",
+                                c."Register_Date",
+                                e."Role" AS Employee_Role,
+                                m."Hotel_Num" AS Manager_HotelNum
+                            FROM
+                                "Person" p
+                            LEFT OUTER JOIN
+                                "Customer" c ON p."ID" = c."ID"
+                            LEFT OUTER JOIN
+                                "Employee" e ON p."ID" = e."ID"
+                            LEFT OUTER JOIN
+                                "Manager" m ON e."ID" = m."ID";
+                            """;
+                    break;
+
+                case "book":
+                    ID = "'" + request.getParameter("ID") + "'";
+                    hotelNum = request.getParameter("HotelNum");
+                    roomNum = request.getParameter("RoomNum");
+                    String bookDate = "'" + request.getParameter("BookDate") + "'";
+                    sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("INSERT INTO \"Archive\" (\"Date\") VALUES (");
+                    sqlBuilder.append(bookDate).append("); \n");
+                    sqlBuilder.append("INSERT INTO \"Book\" (\"Arch_No\" ,\"Hotel_Num\", \"Room_Num\", \"Customer_ID\", \"Date\") VALUES (");
+                    sqlBuilder.append("(SELECT \"Arch_No\" FROM \"Archive\" ORDER BY \"Arch_No\" DESC LIMIT 1), ");
+                    sqlBuilder.append(hotelNum).append(",");
+                    sqlBuilder.append(roomNum).append(",");
+                    sqlBuilder.append(ID).append(",");
+                    sqlBuilder.append(bookDate).append("); ");
+                    sql = sqlBuilder.toString();
+                    break;
+
+                case "checkIn":
+                    String Cust_ID = "'" + request.getParameter("Cust_ID") + "'";
+                    String Emp_ID = "'" + request.getParameter("Emp_ID") + "'";
+                    String archNo =  request.getParameter("ArchNo");
+                    sqlBuilder = new StringBuilder();
+                    sqlBuilder.append("INSERT INTO \"CheckIn\" (\"Customer_ID\" ,\"Arch_No\", \"Employee_ID\", \"Hotel_Num\", \"Room_Num\" ,\"Date\") VALUES (");
+                    sqlBuilder.append(Cust_ID).append(",");
+                    sqlBuilder.append("'").append(archNo).append("',");
+                    sqlBuilder.append(Emp_ID).append(",");
+                    sqlBuilder.append("(SELECT \"Hotel_Num\" FROM \"Book\" WHERE \"Arch_No\" = ").append(archNo).append("),");
+                    sqlBuilder.append("(SELECT \"Room_Num\" FROM \"Book\" WHERE \"Arch_No\" = ").append(archNo).append("),");
+                    sqlBuilder.append("(SELECT \"Date\" FROM \"Book\" WHERE \"Arch_No\" = ").append(archNo).append("));");
+                    sql = sqlBuilder.toString();
+                    break;
             }
 
 
@@ -186,6 +254,7 @@ public class DatabaseServlet extends HttpServlet {
         String ID_Type = "";
         String Role = "";
         String sql = "";
+        Date sqlDate = null;
         try{
             String queryType = request.getParameter("queryType");
 
@@ -218,13 +287,131 @@ public class DatabaseServlet extends HttpServlet {
                     Address = request.getParameter("Address");
                     ID_Type = request.getParameter("ID_Type");
 
-                    sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\") VALUES (?, ?, ?, ?);";
+                    sql = "INSERT INTO \"Person\" (\"ID\", \"Name\", \"Address\", \"ID_Type\") VALUES (?, ?, ?, ?);\n  INSERT INTO \"Customer\" (\"ID\", \"Register_Date\") VALUES (?, ?);";
+
+                    LocalDate currentDate = LocalDate.now();
+                    String formattedDate = currentDate.format(DateTimeFormatter.ISO_DATE); // 'YYYY-MM-DD'
+                    sqlDate = Date.valueOf(formattedDate);
 
                     pstmt = db.prepareStatement(sql);
                     pstmt.setString(1, ID);
                     pstmt.setString(2, Name);
                     pstmt.setString(3, Address);
                     pstmt.setString(4, ID_Type);
+                    pstmt.setString(5, ID);
+                    pstmt.setDate(6, sqlDate);
+
+                    break;
+
+                case "Add_Mod_Manager":
+                    ID = request.getParameter("ID");
+                    Name = request.getParameter("Name");
+                    Address = request.getParameter("Address");
+                    ID_Type = request.getParameter("ID_Type");
+                    Role = request.getParameter("Role");
+                    int hotelNo = Integer.parseInt(request.getParameter("hotelNo"));
+
+                    sql = """
+                            INSERT INTO "Person" ("ID", "Name", "Address", "ID_Type")
+                            VALUES (?, ?, ?, ?)
+                            ON CONFLICT ("ID") DO UPDATE SET
+                                "Name" = EXCLUDED."Name",
+                                "Address" = EXCLUDED."Address",
+                                "ID_Type" = EXCLUDED."ID_Type";
+                            
+                            INSERT INTO "Employee" ("ID", "Name", "Address", "Role")
+                            VALUES (?, ?, ?, ?)
+                            ON CONFLICT ("ID") DO UPDATE SET
+                                "Name" = EXCLUDED."Name",
+                                "Address" = EXCLUDED."Address",
+                                "Role" = EXCLUDED."Role";
+                                
+                            INSERT INTO "Manager" ("ID", "Name", "Address", "Hotel_Num") 
+                            VALUES (?, ?, ?, ?)
+                            ON CONFLICT ("ID") DO UPDATE SET
+                                "Name" = EXCLUDED."Name",
+                                "Address" = EXCLUDED."Address",
+                                "Hotel_Num" = EXCLUDED."Hotel_Num"
+                            """;
+
+                    pstmt = db.prepareStatement(sql);
+                    pstmt.setString(1, ID);
+                    pstmt.setString(2, Name);
+                    pstmt.setString(3, Address);
+                    pstmt.setString(4, ID_Type);
+                    pstmt.setString(5, ID);
+                    pstmt.setString(6, Name);
+                    pstmt.setString(7, Address);
+                    pstmt.setString(8, Role);
+                    pstmt.setString(9, ID);
+                    pstmt.setString(10, Name);
+                    pstmt.setString(11, Address);
+                    pstmt.setInt(12, hotelNo);
+                    break;
+
+
+                case "Add_Mod_Employee":
+                    ID = request.getParameter("ID");
+                    Name = request.getParameter("Name");
+                    Address = request.getParameter("Address");
+                    ID_Type = request.getParameter("ID_Type");
+                    Role = request.getParameter("Role");
+
+                    sql = """
+                            INSERT INTO "Person" ("ID", "Name", "Address", "ID_Type")
+                            VALUES (?, ?, ?, ?)
+                            ON CONFLICT ("ID") DO UPDATE SET
+                                "Name" = EXCLUDED."Name",
+                                "Address" = EXCLUDED."Address",
+                                "ID_Type" = EXCLUDED."ID_Type";
+                            
+                            INSERT INTO "Employee" ("ID", "Name", "Address", "Role")
+                            VALUES (?, ?, ?, ?)
+                            ON CONFLICT ("ID") DO UPDATE SET
+                                "Name" = EXCLUDED."Name",
+                                "Address" = EXCLUDED."Address",
+                                "Role" = EXCLUDED."Role";""";
+
+                    pstmt = db.prepareStatement(sql);
+                    pstmt.setString(1, ID);
+                    pstmt.setString(2, Name);
+                    pstmt.setString(3, Address);
+                    pstmt.setString(4, ID_Type);
+                    pstmt.setString(5, ID);
+                    pstmt.setString(6, Name);
+                    pstmt.setString(7, Address);
+                    pstmt.setString(8, Role);
+                    break;
+
+                case "Add_Mod_User":
+                    ID = request.getParameter("ID");
+                    Name = request.getParameter("Name");
+                    Address = request.getParameter("Address");
+                    ID_Type = request.getParameter("ID_Type");
+                    String date = request.getParameter("date");
+
+                    sql = """
+                            INSERT INTO "Person" ("ID", "Name", "Address", "ID_Type")
+                            VALUES (?, ?, ?, ?)
+                            ON CONFLICT ("ID") DO UPDATE SET
+                                "Name" = EXCLUDED."Name",
+                                "Address" = EXCLUDED."Address",
+                                "ID_Type" = EXCLUDED."ID_Type";
+                            
+                            INSERT INTO "Customer" ("ID", "Register_Date")
+                            VALUES (?, ?)
+                            ON CONFLICT ("ID")
+                            DO UPDATE SET "Register_Date" = EXCLUDED."Register_Date";""";
+
+                    sqlDate = Date.valueOf(date);
+                    pstmt = db.prepareStatement(sql);
+                    pstmt.setString(1, ID);
+                    pstmt.setString(2, Name);
+                    pstmt.setString(3, Address);
+                    pstmt.setString(4, ID_Type);
+                    pstmt.setString(5, ID);
+                    pstmt.setDate(6, sqlDate);
+                    break;
 
                 case "PostSomethingElse":
                     // Handle other query types with PreparedStatement as well

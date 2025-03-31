@@ -2,10 +2,12 @@ window.onload = function () {
     topbar_Modifier();
 };
 
+let empID = "None";
+
 function topbar_Modifier(){
     let logged = false;
     let employee = false;
-    let ID = "None";
+
     const cookieName = "logged"
 
     const cookies = document.cookie.split("; ");
@@ -25,7 +27,7 @@ function topbar_Modifier(){
                 employee = value;
             }
             else if (key === 'ID'){
-                ID = value;
+                empID = value;
             }
         }
         if (logged === 'true'){
@@ -48,48 +50,48 @@ function logout() {
     window.location.href = "index.html";
 }
 
-function e_register(){
-    const firstName = document.getElementById('F_name').value;
-    const middleName = document.getElementById('M_name').value;
-    const lastName = document.getElementById('L_name').value;
-    const Address = document.getElementById('Addr').value;
-    const Role = document.getElementById('Role').value;
-    const ID_Select = document.querySelector('#ID_select').value;
+function book_newUser(){
+    register_customer();
+    bookUser();
+}
+
+function checkin_user(){
+
     const ID = document.getElementById('ID').value;
-    const name = firstName + " " + middleName + " " + lastName;
+    const archNo = document.getElementById("ArchNo").value;
+    console.log(ID);
 
-    const data = new URLSearchParams();
-    data.append("ID", ID);
-    data.append("Name", name);
-    data.append("Address", Address);
-    data.append("ID_Type", ID_Select);
-    data.append("Role", Role);
+    const params = new URLSearchParams({
+        queryType: "checkIn",
+        Emp_ID: empID,
+        ArchNo: archNo,
+        Cust_ID: ID
+      });
 
-    fetch("http://localhost:8080/HotelSite/database?queryType=RegEmployee", {
-        method: "POST",
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: data.toString()})
+    fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
     .then((response) => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         console.log(response);
-        return response.text();
+        return response.json();
     })
     .then((info) => {
         console.log("Success:", info);
-        window.location.assign("index.html");
-        return true;
-        window.location.reload();
+        if (info && info.length > 0 && info[0].exists === true) {
+            return true;
+        }
+        else{
+            return false;
+        }
     })
     .catch((error) => {
         console.error("Error sending data:", error);
         return false;
     });
-
 }
 
-function register(){
+function register_customer(){
     const firstName = document.getElementById('F_name').value;
     const middleName = document.getElementById('M_name').value;
     const lastName = document.getElementById('L_name').value;
@@ -117,13 +119,65 @@ function register(){
     })
     .then((info) => {
         console.log("Success:", info);
-        window.location.assign("index.html");
         return true;
-        window.location.reload();
     })
     .catch((error) => {
         console.error("Error sending data:", error);
         return false;
     });
+}
 
+function bookUser() {
+    const sessionDataString = sessionStorage.getItem('bookingDetails');
+
+    if (sessionDataString) {
+      try {
+        // Parse the string into a JavaScript object
+        const sessionData = JSON.parse(sessionDataString);
+        console.log('Retrieved Session Data:', sessionData);
+
+        const hotelChain = sessionData.hotelChain;
+        const hotelId = sessionData.hotelId;
+        const roomId = sessionData.roomId;
+        const checkinDate = sessionData.checkin;
+        const numberOfGuests = sessionData.guests;
+        const ID = document.getElementById('ID').value;
+
+        const params = new URLSearchParams({
+                queryType: "book",
+                ID: ID,
+                HotelNum: hotelId,
+                RoomNum: roomId,
+                BookDate: checkinDate,
+              });
+
+            fetch(`http://localhost:8080/HotelSite/database?${params.toString()}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                console.log(response);
+                return response.json();
+            })
+            .then((info) => {
+                console.log("Success:", info);
+                if (info && info.length > 0 && info[0].exists === true) {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            })
+            .catch((error) => {
+                console.error("Error sending data:", error);
+                return false;
+            });
+
+      } catch (error) {
+        console.error('Error parsing session storage data:', error);
+      }
+    } else {
+      console.log('No data found in session storage with the key "bookingDetails".');
+    }
 }

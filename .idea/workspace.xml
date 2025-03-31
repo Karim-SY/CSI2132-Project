@@ -8,10 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/contact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/cemanagement-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/cemanagement-e.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/confirmation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal-book.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/portal-book.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/registrationScripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/registrationScripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.html" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/room-e.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/src/main/webapp/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelSite/target/classes/org/example/DatabaseServlet.class" afterDir="false" />
     </list>
@@ -45,7 +45,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Smart Tomcat.Hotel.executor": "Run",
-    "Smart Tomcat.HotelServer.executor": "Run",
+    "Smart Tomcat.HotelServer.executor": "Debug",
     "Smart Tomcat.Unnamed.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
@@ -62,6 +62,7 @@
       <recent name="C:\Users\Shekh\Documents\GitHub\CSI2132-Project\HotelSite\src\main\webapp\META-INF" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Shekh\Documents\GitHub\CSI2132-Project\HotelSite\src\main\webapp" />
       <recent name="C:\Users\Shekh\Documents\GitHub\CSI2132-Project\HotelSite\src\main\webapp\WEB-INF\lib" />
       <recent name="C:\Users\Shekh\Documents\GitHub\CSI2132-Project\HotelSite\.smarttomcat\HotelSite\conf" />
     </key>
@@ -134,5 +135,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java</url>
+          <line>214</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/HotelSite/src/main/java/org/example/DatabaseServlet.java</url>
+          <line>197</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

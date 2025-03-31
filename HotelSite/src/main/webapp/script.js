@@ -250,6 +250,7 @@ function updatePrice() {
     const personForm = document.getElementById('personForm');
     const personList = document.getElementById('personList');
     const registerDateField = document.getElementById('registerDateField');
+    const roleField = document.getElementById('employeeRole');
 
     let people = [];
     let editingIndexPerson = -1; // Renamed to avoid conflict
@@ -350,7 +351,11 @@ function updatePrice() {
         if (person.role === "Customer") {
             registerDateField.style.display = "block";
             document.getElementById('registerDate').value = person.registerDate;
-        } else {
+        }
+        else if (person.role === "Employee"){
+            roleField.style.display = "block";
+        }
+        else {
             registerDateField.style.display = "none";
         }
 

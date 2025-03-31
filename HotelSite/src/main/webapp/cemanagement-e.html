@@ -51,7 +51,7 @@
                 </label>
                 <br>
                 <label>
-                    Role:
+                    UserType:
                     <input type="radio" name="role" id="roleManager" value="Manager"> Manager
                     <input type="radio" name="role" id="roleEmployee" value="Employee"> Employee
                     <input type="radio" name="role" id="roleCustomer" value="Customer"> Customer
@@ -63,19 +63,31 @@
                     </label>
                     <br>
                 </div>
+                <div id="employeeRole" style="display: none;">
+                    <label>
+                        Employee Role: <input id="empRole">
+                    </label>
+                    <br>
+                </div>
+                <div id="ManagerHotel" style="display: none;">
+                    <label>
+                        Manager Hotel: <input id="mgrHotelNo">
+                    </label>
+                    <br>
+                </div>
                 <label>
                     ID Type:
                     <input type="radio" name="idType" id="idTypeSSN" value="SSN"> SSN
                     <input type="radio" name="idType" id="idTypeSIN" value="SIN"> SIN
-                    <input type="radio" name="idType" id="idTypeDL" value="Driver's License"> Driver's License
+                    <input type="radio" name="idType" id="idTypeDL" value="Driving License"> Driver's License
                 </label>        
                 <br>
                 <label>
                     ID: <input type="text" id="id" required>
                 </label>
                 <br>
-                <button type="submit">Add/Update Person</button>
             </form>
+            <button onclick="register()" type="submit">Add/Update Person</button> <button onclick="deleteUser()" type="submit">Remove Person</button>
         </div>
         <div class="sidebar">
             <h3>Clients/Employees</h3>
@@ -111,6 +123,6 @@
           </tr>
         </table> 
     </footer>
-  <script src="script.js"></script>
+  <script src="cemanagement.js"></script>
 </body>
 </html>

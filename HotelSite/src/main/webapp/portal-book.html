@@ -29,69 +29,36 @@
 <body>
     <center>
   <div>
-        <h2>Booking portal</h2>  </center>
+        <h2>Check Customers In</h2>  </center>
   </div>
   <div class="main">
-    <form>
+
         <h3>Customer information</h3>
-        <label>First name:</label>
-            <input type="text" maxlength="15">
+          <br><br><label>First name:</label>
+          <input id = "F_name" type="text" maxlength="15">
 
-        <br><br><label>Middle name:</label>
-        <input type="text" maxlength="15"> 
+          <br><br><label>Middle name:</label>
+          <input id = "M_name" type="text" maxlength="15">
 
-        <br><br><label>Last name:</label>
-        <input type="text" maxlength="15"> 
+          <br><br><label>Last name:</label>
+          <input id = "L_name" type="text" maxlength="15">
 
-        <br><br><label>Address:</label>
-        <input type="text" maxlength="50"> 
+          <br><br><label>Address:</label>
+          <input id = "Addr" type="text" maxlength="50">
 
-        <br><br><label id="ID">Select ID type:
-        <select>
+          <br><br><label for="ID_select">Select ID type:
+          <select id="ID_select">
           <option value="SSN">SSN</option>
           <option value="SIN">SIN</option>
           <option value="License">Driver's License</option>
-        </select></label>
+      </select></label>
 
-        <br><br><label id="ID">ID:
-            <input type="text" maxlength="20"></label>
-
-        <h3>Room information</h3>
-        <label id="hotel" for="hotel">Select Hotel Chain:
-            <select>
-                <option value="NewYork">Grand Horizon New York</option>
-                <option value="Aspen">Grand Horizon Aspen Retreat</option>
-                <option value="Miami">Grand Horizon Miami Beach</option>
-                <option value="LasVegas">Grand Horizon Las Vegas</option>
-                <option value="Napa">Grand Horizon Napa Valley</option>
-            </select></label>
-        
-            <br><br><label id="nroom" for="rooms">Rooms: <input type="number" min="1" max="5" value="1"></label>
-            
-            <br><br><label id="guests" for="guests">Guests:
-            <input type="number" min="1" max="6" value="1"></label>
-            
-            
-            <br><br><label id="checkin" for="checkin">Check-in Date:
-            <input type="date"></label>
-            
-            <br><br><label id="checkout" for="checkout">Check-out Date:
-            <input type="date"></label>
-            
-            <br><br><label  id="attraction" for="attraction">Area attraction:
-            <select>
-                <option value="Mountains">Mountain view</option>
-                <option value="Beach">Beachfront resort</option>
-                <option value="City">Bustling city core</option>
-            </select></label>
-        
-          <br><br><div class="container">
-              <input type="range" id="priceRange" min="0" max="1000" value="500" oninput="updatePrice()">
-              Price max per night: $<span id="priceValue">500</span>
-          </div>
-            <br><br><a href="confirmation.html"><button type="button">Reserve room(s)</button></a>
+        <br><br><label >ID:
+            <input id="ID" type="text" maxlength="20"></label>
+        <br><label> Archive Number (required for checkin) <input id="ArchNo" type="number"></label>
+            <br><br><a><button onclick="book_newUser()" type="button">Reserve room</button> <button onclick="checkin_user()" type="button">Check-in</button></a>
       </div>
-    </form>
+
 
   </div>
     <!--Footer-->
@@ -122,6 +89,6 @@
           </tr>
         </table> 
     </footer>
-  <script src="script.js"></script>
+  <script src="bookportal.js"></script>
 </body>
 </html>
